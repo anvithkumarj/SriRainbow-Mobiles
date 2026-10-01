@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b3d33"><link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg"><link rel="apple-touch-icon" href="assets/icon-192.png">
+<title>Sri Rainbow Mobiles</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<main id="app">
+<section class="view" id="v-login">
+ <img class="logo" src="assets/icon.svg" alt="">
+ <h1 class="brand">Sri Rainbow Mobiles</h1>
+ <h2>Login</h2><p class="sub">Welcome back please login to your account</p>
+ <form id="lf" autocomplete="off">
+  <label class="bz in"><input id="lu" placeholder="User Name" autocapitalize="none" required><span>👤</span></label>
+  <label class="bz in"><input id="lp" type="password" placeholder="Password" required><button type="button" id="eye" class="ic" aria-label="Show password">👁</button></label>
+  <p id="le" class="err" role="alert"></p>
+  <button class="bz btn" type="submit">Login ➜</button>
+ </form>
+ <button class="bz btn sm" id="lb">View Bills 📋</button>
+ <button class="bz btn sm" id="inst" hidden>Install App ⬇</button>
+</section>
+
+<section class="view" id="v-dash" hidden>
+ <img class="logo" src="assets/icon.svg" alt=""><h1 class="brand">Sri Rainbow Mobiles</h1>
+ <div class="card"><h3>Today's Sales</h3><div class="big" id="ts">₹0.00</div><p class="muted" id="tc"></p><p class="muted" id="td"></p></div>
+ <button class="bz btn" id="nb">New Bill ➕</button>
+ <button class="bz btn" id="vb">Bill History 📋</button>
+ <button class="bz btn sm" id="perm">Enable Permissions 🔐</button>
+ <button class="bz btn sm" id="inst2" hidden>Install App ⬇</button>
+ <button class="bz btn sm" id="lo">Logout</button>
+</section>
+
+<section class="view" id="v-bill" hidden>
+ <header class="top"><button class="back" data-go="dash">‹ Back</button><h1 class="brand sm">Sri Rainbow Mobiles</h1></header>
+ <form class="card" id="bf" novalidate>
+  <h3>Customer Details</h3>
+  <input class="bz in" id="cn" placeholder="Name" autocomplete="off">
+  <input class="bz in" id="cm" placeholder="Mobile Number" type="tel" inputmode="numeric" maxlength="10">
+  <input class="bz in" id="ce" placeholder="Email" type="email" inputmode="email">
+  <h3>Device Details</h3>
+  <input class="bz in" id="br" placeholder="Brand">
+  <input class="bz in" id="md" placeholder="Model">
+  <div class="row"><input class="bz in" id="im" placeholder="IMEI Number" inputmode="numeric" maxlength="15"><button type="button" class="bz btn scan" id="sc" aria-label="Scan IMEI">📷</button></div>
+  <h3>Warranty</h3>
+  <input class="bz in" id="wd" placeholder="Duration (e.g. 12 months)">
+  <input class="bz in" id="wn" placeholder="Warranty details / notes">
+  <h3>Mode of Payment</h3>
+  <div class="seg" id="pm"><button type="button" data-p="Cash" class="on">Cash</button><button type="button" data-p="UPI">UPI</button><button type="button" data-p="Other">Other</button></div>
+  <input class="bz in" id="tx" placeholder="UPI Transaction ID" hidden>
+  <input class="bz in" id="po" placeholder="Payment details (optional)" hidden>
+  <h3>Price Breakdown</h3>
+  <div class="grid3">
+   <label>Original Price<input id="op" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0"></label>
+   <label>Discount (₹)<input id="dc" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0"></label>
+   <label>GST %<input id="gp" type="number" inputmode="decimal" min="0" max="100" step="0.01" value="18"></label>
+  </div>
+  <div class="sum"><div><span>Price after discount</span><b id="pa">₹0.00</b></div><div><span>GST (added)</span><b id="ga">₹0.00</b></div><div class="fin"><span>Final Price</span><b id="fp">₹0.00</b></div><div><span>Total Saved</span><b id="sv">₹0.00</b></div></div>
+  <p id="be" class="err" role="alert"></p>
+  <div class="split"><div class="addr"><b>STORE ADDRESS</b><br>India<br>Andhra Pradesh<br>Krishna<br>Vuyyuru<br>Main Center<br>Pincode - 521165<br>Mobile - 9291906669</div>
+   <div class="qr"><b>SCAN FOR INSTAGRAM</b><div id="qb" tabindex="0">Paste QR here</div><input type="file" id="qf" accept="image/*" hidden>
+    <div class="qa"><button type="button" id="qu">Upload</button><button type="button" id="qp">Paste</button><button type="button" id="qx">Remove</button></div></div></div>
+  <label class="muted">Receipt width <select id="pw"><option value="80">80 mm</option><option value="58">58 mm</option></select></label>
+  <button class="bz btn" type="submit">Print Bill 🖨</button>
+  <button class="bz btn sm" type="button" id="rs">Clear Form</button>
+ </form>
+</section>
+
+<section class="view" id="v-hist" hidden>
+ <header class="top"><button class="back" id="hb">‹ Back</button><h1 class="brand sm">Bill History</h1></header>
+ <div class="card">
+  <input class="bz in" id="hs" type="search" placeholder="Search bill no, name, mobile, IMEI">
+  <div class="row"><label class="grow">Date<input type="date" id="hd"></label><label class="grow">Month<input type="month" id="hm"></label></div>
+  <div class="row"><label class="grow">Year<select id="hy"><option value="">All</option></select></label><button class="bz btn sm" id="hc" type="button">Clear Filters</button></div>
+  <div class="sum"><div><span>Bills</span><b id="sn">0</b></div><div class="fin"><span>Sales</span><b id="st">₹0.00</b></div></div>
+ </div>
+ <div id="hl"></div>
+</section>
+</main>
+
+<div id="dlg" class="modal" hidden><div class="mbox"><div id="dr" class="rc"></div><div class="row"><button class="bz btn sm" id="dp">Reprint</button><button class="bz btn sm" id="dd">Delete</button><button class="bz btn sm" id="dx">Close</button></div></div></div>
+<div id="scm" class="modal" hidden><div class="mbox"><video id="vid" playsinline muted></video><p id="sm" class="muted"></p><button class="bz btn sm" id="scx">Close Scanner</button></div></div>
+<div id="toast" hidden></div>
+<div id="receipt" class="rc"></div>
+<footer>Created by Sri Rainbow Mobiles</footer>
+<script src="js/app.js"></script>
+</body></html>

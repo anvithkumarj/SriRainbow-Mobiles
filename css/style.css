@@ -1,0 +1,33 @@
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:system-ui,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 50% 0,#14584a,#082b24 70%) fixed;color:#e6c9a8;min-height:100vh;padding:env(safe-area-inset-top) 0 0}
+#app{max-width:520px;margin:0 auto;padding:18px 16px 70px}
+.logo{display:block;width:84px;margin:8px auto;border-radius:18px}
+.brand{font-family:Georgia,serif;font-weight:400;color:#d9b48f;text-align:center;font-size:30px;margin:6px 0 14px}.brand.sm{font-size:20px;margin:0;flex:1}
+h2{color:#d9b48f;margin:4px 0}.sub{margin:0 0 18px;color:#c9a47c}
+.bz{display:block;width:100%;border:0;border-radius:16px;padding:15px 16px;font-size:16px;color:#2a1a10;background:linear-gradient(180deg,#d9a883,#eac3a2 50%,#bd8461);box-shadow:0 4px 10px #0007,inset 0 1px #fff6;margin:0 0 14px}
+.bz::placeholder{color:#4a3022}.bz.in{outline:0}.bz.in:focus{box-shadow:0 0 0 3px #f2d2b2}
+label.bz.in{display:flex;align-items:center;gap:8px;padding:0 16px}label.bz.in input{flex:1;border:0;background:none;font-size:16px;padding:15px 0;outline:0;color:#2a1a10;min-width:0}
+.ic{border:0;background:none;font-size:18px}
+.btn{font-weight:700;text-align:center;cursor:pointer;font-size:18px}.btn.sm{font-size:15px;padding:12px}.btn:active{transform:scale(.98)}
+.card{background:#fff;color:#222;border-radius:22px;padding:16px;margin-bottom:16px}.card h3{margin:10px 0}
+.card .bz{color:#2a1a10}.big{font-size:34px;font-weight:700;color:#0b3d33}.muted{color:#7a6a5c;font-size:13px;margin:4px 0}
+.err{color:#ff8a80;min-height:18px;margin:0 0 8px;font-size:14px}.card .err{color:#c62828}
+.row{display:flex;gap:10px;align-items:flex-start}.row .in{flex:1}.grow{flex:1;font-size:13px;color:#555}
+.scan{width:60px;padding:12px 0}
+.seg{display:flex;gap:8px;margin-bottom:12px}.seg button{flex:1;padding:12px;border-radius:12px;border:2px solid #bd8461;background:#fff;font-size:15px}.seg .on{background:linear-gradient(#d9a883,#bd8461);font-weight:700}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid3 label{font-size:12px;border:2px solid #bd8461;border-radius:12px;padding:6px}
+input,select{font:inherit}.grid3 input,.card select,.card input[type=date],.card input[type=month]{width:100%;border:0;font-size:16px;padding:6px 0;outline:0;background:none}
+.sum div{display:flex;justify-content:space-between;padding:7px 4px;border-bottom:1px dashed #ccc}.sum .fin{font-size:18px;font-weight:700;color:#0b3d33}
+.split{display:flex;gap:12px;margin:14px 0;border-top:2px dashed #ccc;padding-top:12px}.addr{flex:1;background:#eee6dc;border-radius:12px;padding:10px;font-size:13px;line-height:1.5}
+.qr{flex:1;font-size:11px;text-align:center}#qb{height:110px;margin:4px 0;border:2px dashed #bd8461;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#777;overflow:hidden}#qb img{max-width:100%;max-height:100%}
+.qa{display:flex;gap:4px}.qa button{flex:1;font-size:11px;padding:6px 2px;border-radius:8px;border:1px solid #bd8461;background:#fff}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:12px}.back{background:none;border:0;color:#e6c9a8;font-size:17px}
+.modal{position:fixed;inset:0;background:#000b;z-index:20;display:flex;align-items:center;justify-content:center;padding:12px}.modal[hidden]{display:none}
+.mbox{background:#fff;border-radius:18px;padding:14px;width:100%;max-width:420px;max-height:92vh;overflow:auto}#vid{width:100%;border-radius:12px;background:#000}
+.hi{background:#fff;color:#222;border-radius:14px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;cursor:pointer}.hi small{color:#777;display:block}
+#toast{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);background:#000d;color:#fff;padding:10px 16px;border-radius:20px;z-index:30;max-width:90%}
+footer{position:fixed;bottom:0;left:0;right:0;text-align:center;padding:10px;font-size:13px;color:#c9a47c;background:#082b24ee}
+.rc{font-family:'Courier New',monospace;font-size:12px;color:#000;background:#fff;line-height:1.35}.rc .c{text-align:center}.rc hr{border:0;border-top:1px dashed #000}.rc .r{display:flex;justify-content:space-between;gap:6px}.rc img{width:90px;display:block;margin:4px auto}
+#receipt{display:none}
+@media(min-width:700px){#app{padding-top:30px}}
+@media print{body>*{display:none!important}body>#receipt{display:block!important;margin:0;padding:0;font-size:11px}}
