@@ -129,16 +129,44 @@ $('#qp').onclick=async()=>{try{for(const it of await navigator.clipboard.read())
 $('#qb').onclick=()=>$('#qb').focus();
 
 /* ---------- scanner ---------- */
-let stream,timer;
-function stopScan(){clearInterval(timer);stream&&stream.getTracks().forEach(t=>t.stop());stream=null;$('#vid').srcObject=null;$('#scm').hidden=true}
+let stream,scanning=false,scanT;
+function stopScan(){scanning=false;clearTimeout(scanT);stream&&stream.getTracks().forEach(t=>t.stop());stream=null;$('#vid').srcObject=null;$('#scm').hidden=true}
 $('#scx').onclick=stopScan;
+const loadZX=()=>window.ZXing?Promise.resolve():new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)});
+const imeiFrom=t=>{const m=String(t||'').match(/\d{15}/);return m?m[0]:null};
 $('#sc').onclick=async()=>{
- if(!('BarcodeDetector'in window)||!navigator.mediaDevices?.getUserMedia)return toast('Scanning not supported in this browser. Enter IMEI manually.');
+ if(!navigator.mediaDevices?.getUserMedia)return toast('Camera not supported in this browser. Enter IMEI manually.');
  $('#scm').hidden=false;$('#sm').textContent='Starting camera…';
- try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});const v=$('#vid');v.srcObject=stream;await v.play();
-  const det=new BarcodeDetector({formats:['code_128','code_39','ean_13','itf','codabar','upc_a']});$('#sm').textContent='Point at the IMEI barcode';
-  timer=setInterval(async()=>{try{for(const c of await det.detect(v)){const m=(c.rawValue.match(/\d{15}/)||[])[0];if(m){$('#im').value=m;stopScan();toast('IMEI scanned');return}$('#sm').textContent='Not a 15-digit IMEI, try again'}}catch{}},300)}
- catch(e){stopScan();toast(e.name==='NotAllowedError'?'Camera permission denied. Enter IMEI manually.':'Camera unavailable. Enter IMEI manually.')}};
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});
+  const v=$('#vid');v.srcObject=stream;await v.play();
+  try{const tr=stream.getVideoTracks()[0],caps=tr.getCapabilities?tr.getCapabilities():{};
+   if(caps.focusMode&&caps.focusMode.includes('continuous'))await tr.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch{}
+  let det=null,zr=null;
+  if('BarcodeDetector'in window){try{det=new BarcodeDetector()}catch{}}
+  loadZX().then(()=>{const Z=window.ZXing,h=new Map();
+   h.set(Z.DecodeHintType.POSSIBLE_FORMATS,[Z.BarcodeFormat.CODE_128,Z.BarcodeFormat.CODE_39,Z.BarcodeFormat.EAN_13,Z.BarcodeFormat.ITF,Z.BarcodeFormat.CODABAR,Z.BarcodeFormat.UPC_A]);
+   h.set(Z.DecodeHintType.TRY_HARDER,true);zr=new Z.MultiFormatReader();zr.setHints(h)}).catch(()=>{});
+  if(!det)$('#sm').textContent='Loading scanner…';
+  const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+  const found=m=>{$('#im').value=m;stopScan();toast('IMEI scanned: '+m)};
+  scanning=true;
+  const tick=async()=>{
+   if(!scanning)return;
+   try{
+    if(v.readyState>=2&&v.videoWidth){
+     if(det){const r=await det.detect(v);
+      for(const c of r){const m=imeiFrom(c.rawValue);if(m)return found(m);$('#sm').textContent='Read "'+c.rawValue+'" - not a 15-digit IMEI'}}
+     if(scanning&&zr){const sc=Math.min(1,1280/v.videoWidth);cv.width=Math.round(v.videoWidth*sc);cv.height=Math.round(v.videoHeight*sc);
+      cx.drawImage(v,0,0,cv.width,cv.height);
+      try{const Z=window.ZXing,res=zr.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(new Z.HTMLCanvasElementLuminanceSource(cv))));
+       const m=imeiFrom(res.getText());if(m)return found(m);$('#sm').textContent='Read "'+res.getText()+'" - not a 15-digit IMEI'}catch{}}
+     if(scanning&&($('#sm').textContent==='Starting camera…'||$('#sm').textContent==='Loading scanner…'))$('#sm').textContent='Hold the IMEI barcode steady, fill the frame';
+    }
+   }catch{}
+   if(scanning)scanT=setTimeout(tick,150)};
+  tick();
+ }catch(e){stopScan();toast(e.name==='NotAllowedError'?'Camera permission denied. Enter IMEI manually.':'Camera unavailable. Enter IMEI manually.')}};
 $('#im').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'');
 $('#cm').oninput=e=>e.target.value=e.target.value.replace(/\D/g,'');
 
