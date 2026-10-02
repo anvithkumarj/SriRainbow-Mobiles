@@ -67,7 +67,7 @@ $('#bf').onsubmit=async e=>{e.preventDefault();const c=calc(),er=$('#be'),v=id=>
 
 /* ---------- receipt / print ---------- */
 function receipt(b){const p=b.price,d=new Date(b.ts);
- return `<div class="c"><b style="font-size:1.3em">Sri Rainbow Mobiles</b><br>Vuyyuru, Main Center<br>Krishna, Andhra Pradesh, India<br>Pincode - 521165<br>Mobile - 9291906669</div><hr>
+ return `<div class="c"><b style="font-size:1.3em">Sri Rainbow Mobiles</b><br>Vuyyuru, Main Center<br>Krishna, Andhra Pradesh, India<br>Pincode - 521165<br>Mobile - 9291906669<br>GST : 37AWRPJ3091PIZN</div><hr>
  <div class="r"><span>Bill: ${esc(b.id)}</span></div><div>${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')}</div><hr>
  <div>Customer: ${esc(b.cust.name)}</div><div>Mobile: ${esc(b.cust.mobile)}</div>${b.cust.email?`<div>Email: ${esc(b.cust.email)}</div>`:''}<hr>
  <div>${esc(b.dev.brand)} ${esc(b.dev.model)}</div><div>IMEI: ${esc(b.dev.imei)}</div>
