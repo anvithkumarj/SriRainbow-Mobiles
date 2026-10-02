@@ -91,15 +91,28 @@ function receipt(b) {
         GST : 37AWRPJ3091PIZN
       </div>
     </div>
- <div class="r"><span>Bill: ${esc(b.id)}</span></div><div>${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')}</div><hr>
- <div>Customer: ${esc(b.cust.name)}</div><div>Mobile: ${esc(b.cust.mobile)}</div>${b.cust.email?`<div>Email: ${esc(b.cust.email)}</div>`:''}<hr>
- <div>${esc(b.dev.brand)} ${esc(b.dev.model)}</div><div>IMEI: ${esc(b.dev.imei)}</div>
- <div>Warranty: ${esc(b.warranty.duration)||'-'}</div>${b.warranty.notes?`<div>${esc(b.warranty.notes)}</div>`:''}<hr>
- <div class="r"><span>Original Price</span><span>${fmt(p.original)}</span></div><div class="r"><span>Discount</span><span>-${fmt(p.discount)}</span></div>
- <div class="r"><span>Price after disc.</span><span>${fmt(p.after)}</span></div><div class="r"><span>GST ${p.gstPct}%</span><span>+${fmt(p.gst)}</span></div>
- <div class="r" style="font-size:1.2em"><b>FINAL PRICE</b><b>${fmt(b.final)}</b></div><div class="r"><span>Total Saved</span><b>${fmt(b.saved)}</b></div><hr>
- <div>Paid by: ${esc(b.pay.mode)}</div>${b.pay.txn?`<div>Txn ID: ${esc(b.pay.txn)}</div>`:''}${b.pay.details?`<div>${esc(b.pay.details)}</div>`:''}<hr>
- ${b.qr?`<div class="c">Scan for Instagram<img src="${b.qr}" alt="QR"></div>`:''}<div class="c">Thank you! Visit again.</div>`}
+    <div class="r"><span>Bill: ${esc(b.id)}</span></div>
+    <div>${d.toLocaleDateString('en-IN')} ${d.toLocaleTimeString('en-IN')}</div><hr>
+    <div>Customer: ${esc(b.cust.name)}</div>
+    <div>Mobile: ${esc(b.cust.mobile)}</div>
+    ${b.cust.email ? `<div>Email: ${esc(b.cust.email)}</div>` : ''}<hr>
+    <div>${esc(b.dev.brand)} ${esc(b.dev.model)}</div>
+    <div>IMEI: ${esc(b.dev.imei)}</div>
+    <div>Warranty: ${esc(b.warranty.duration) || '-'}</div>
+    ${b.warranty.notes ? `<div>${esc(b.warranty.notes)}</div>` : ''}<hr>
+    <div class="r"><span>Original Price</span><span>${fmt(p.original)}</span></div>
+    <div class="r"><span>Discount</span><span>-${fmt(p.discount)}</span></div>
+    <div class="r"><span>Price after disc.</span><span>${fmt(p.after)}</span></div>
+    <div class="r"><span>GST ${p.gstPct}%</span><span>+${fmt(p.gst)}</span></div>
+    <div class="r" style="font-size:1.2em"><b>FINAL PRICE</b><b>${fmt(b.final)}</b></div>
+    <div class="r"><span>Total Saved</span><b>${fmt(b.saved)}</b></div><hr>
+    <div>Paid by: ${esc(b.pay.mode)}</div>
+    ${b.pay.txn ? `<div>Txn ID: ${esc(b.pay.txn)}</div>` : ''}
+    ${b.pay.details ? `<div>${esc(b.pay.details)}</div>` : ''}<hr>
+    ${b.qr ? `<div class="c">Scan for Instagram<img src="${b.qr}" alt="QR"></div>` : ''}
+    <div class="c">Thank you! Visit again.</div>
+  `;
+}
 function printBill(b){const w=b.width==='58'?'58mm':'80mm';
  let s=$('#pstyle');if(!s){s=document.createElement('style');s.id='pstyle';document.head.appendChild(s)}
  s.textContent=`@media print{@page{size:${w} auto;margin:2mm}body>#receipt{width:${w==='58mm'?'54mm':'76mm'}}}`;
